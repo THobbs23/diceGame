@@ -1,0 +1,28 @@
+  // Create an assertion.
+  `define ASSERT(expr)                    \
+    test_count = test_count + 1;          \
+    if (!(expr)) begin                    \
+      $display("Assert failed on line %d at %g ns in test %s.", `__LINE__, $time, test_name); \
+      pass = 1'bx;                        \
+     test_failures = test_failures + 1;  \
+    end
+    
+   // For ease of determining the current test, provide a short test name.
+  reg[8*20:0] test_name;
+  // This records the number of assertions performed.
+  reg[31:0] test_count = 0;
+  // This records the number of failed asserts.
+  reg[31:0] test_failures = 0;
+   // Pass is set x when an `ASSERT fails, then returned to true by `TEST_RUN_RESET. This helps to show visually where a failure occured.
+  reg pass = 1;
+
+   task check_all_pass;
+    begin
+      // Output test results; wait for two falling clock edges, when all_pass is guaranteed to be valid.
+      $display("\n**************** Test results ***********************\nA total of %d tests finished at %g ns.", test_count, $time);
+      if (test_failures == 0)
+        $display("All tests passed.");
+      else
+        $display("FOUND %d TEST FAILURE(S)!", test_failures);
+    end
+  endtask

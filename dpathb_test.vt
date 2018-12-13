@@ -1,0 +1,168 @@
+// Verilog test fixture created from schematic C:\Users\bjones\Documents\Dropbox\ece3714_ise_projects\stopwatch\stopwatch.sch - Wed Nov 06 17:07:00 2013
+
+`timescale 1ns / 1ps
+
+module dpathb_test
+();
+
+  // Inputs
+  reg [3:0] sum;
+  reg clk;
+  reg sp;
+  reg reset_n;
+
+
+  // Output
+  wire [3:0] STORED_POINT;
+  wire D7;
+  wire D11;
+  wire D2312; 
+  wire EQ; 
+  
+  // Bidirs
+
+  // Instantiate the UUT
+  dpathb UUT (
+		.sum(sum), 
+		.sp(sp),
+		.reset_n(reset_n),		
+		.clk(clk), 
+      .STORED_POINT(STORED_POINT),
+		.D7(D7),
+		.D11(D11),		
+		.D2312(D2312),
+      .EQ(EQ)		
+  );
+
+
+  // Initialize Inputs
+  `ifdef auto_init
+    initial begin
+		  sum= 2;
+		  sp = 0;
+		  reset_n = 1;		  
+		  clk = 0;
+  `endif
+  
+// Test bench
+// ===============
+  // Bring in the the test bench, which produces all_pass to indicate if all tests pass, and check_all_pass(), which prints
+  // a pass/fail message.  
+  `include "test_bench.vt"  
+
+  // Clock the device under test by moving past a rising edge to the next falling edge. Then,
+  // reset any test failures and relevant inputs before the next test is run.
+  `define TEST_RUN_RESET             \
+    @(negedge clk);                  \
+    pass = 1; sp = 0;    \
+    reset_n = 1
+
+ 
+  `define RESET_UUT \
+    sum = 0; sp = 1; reset_n = 0    
+
+
+	 
+  // Provide a system clock.
+  always
+    #10 clk = !clk;
+
+  initial begin
+    $display("\n**************** Testing begins ***********************");
+
+    // Start the clock
+    clk = 0;
+
+    // Count begins at 0
+    test_name = "reset all    ";      
+    `RESET_UUT;
+    `TEST_RUN_RESET;
+    `ASSERT(STORED_POINT === 0)
+   
+    // Let sum increment to 12. checking out logic
+    test_name = "sum to 2  ";      
+	 sum = 2;
+    `TEST_RUN_RESET;
+    `ASSERT(D2312 === 1)
+    `ASSERT(D7 === 0)
+    `ASSERT(D11 === 0)
+    `ASSERT(EQ === 0)	 
+    test_name = "sum to 3  "; 
+	 sum = 3;	 
+	 `TEST_RUN_RESET;
+    `ASSERT(D2312 === 1)
+    `ASSERT(D7 === 0)
+    `ASSERT(D11 === 0)
+    `ASSERT(EQ === 0)
+    test_name = "sum to 4  "; 
+	  sum = 4;	 
+    `TEST_RUN_RESET;
+    `ASSERT(D2312 === 0)
+    `ASSERT(D7 === 0)
+    `ASSERT(D11 === 0)
+    `ASSERT(EQ === 0)	 
+    test_name = "sum to 5  "; 
+	 sum = 5;	 
+    `TEST_RUN_RESET;
+    `ASSERT(D2312 === 0)
+    `ASSERT(D7 === 0)
+    `ASSERT(D11 === 0)
+    `ASSERT(EQ === 0)	 
+    test_name = "sum to 6  "; 
+	  sum = 6;	 
+    `TEST_RUN_RESET;
+    `ASSERT(D2312 === 0)
+    `ASSERT(D7 === 0)
+    `ASSERT(D11 === 0)
+    `ASSERT(EQ === 0)	 
+    test_name = "sum to 7  "; 
+	  sum = 7;	 
+    `TEST_RUN_RESET;	 
+    `ASSERT(D2312 === 0)
+    `ASSERT(D7 === 1)
+    `ASSERT(D11 === 0)
+    `ASSERT(EQ === 0)	 
+ //   `ASSERT(STORED_POINT === 7)
+    test_name = "sum to 8  ";      
+	 sum = 8;
+    `TEST_RUN_RESET;
+    `ASSERT(D2312 === 0)
+    `ASSERT(D7 === 0)
+    `ASSERT(D11 === 0)
+    `ASSERT(EQ === 0)	 
+    test_name = "sum to 9  "; 
+	 sum = 9;	 
+	 `TEST_RUN_RESET;
+    `ASSERT(D2312 === 0)
+    `ASSERT(D7 === 0)
+    `ASSERT(D11 === 0)
+    `ASSERT(EQ === 0)	 
+    test_name = "sum to 10  "; 
+	  sum = 10;	 
+    `TEST_RUN_RESET;
+    `ASSERT(D2312 === 0)
+    `ASSERT(D7 === 0)
+    `ASSERT(D11 === 0)
+    `ASSERT(EQ === 0)	 
+    test_name = "sum to 11  "; 
+	 sum = 11;	 
+    `TEST_RUN_RESET;
+    `ASSERT(D2312 === 0)
+    `ASSERT(D7 === 0)
+    `ASSERT(D11 === 1)
+    `ASSERT(EQ === 0)	 
+    test_name = "sum to 12  "; 
+	  sum = 12;	 
+    `TEST_RUN_RESET;
+    `ASSERT(D2312 === 1)
+    `ASSERT(D7 === 0)
+    `ASSERT(D11 === 0)
+    `ASSERT(EQ === 0)	
+     sp = 1;`TEST_RUN_RESET; 
+    `ASSERT(STORED_POINT === 12)
+ 
+    // Tests are done. Print out the results.
+    check_all_pass();	
+  end
+  
+endmodule

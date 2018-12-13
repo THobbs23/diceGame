@@ -1,0 +1,96 @@
+Info: Start Nativelink Simulation process
+
+========= EDA Simulation Settings =====================
+
+Sim Mode              :  Gate
+Family                :  cyclonev
+Quartus root          :  c:/altera/15.0/quartus/bin64/
+Quartus sim root      :  c:/altera/15.0/quartus/eda/sim_lib
+Simulation Tool       :  modelsim-altera
+Simulation Language   :  verilog
+Simulation Mode       :  GUI
+Sim Output File       :  Dice_Game.vo
+Sim SDF file          :  Dice_Game__verilog.sdo
+Sim dir               :  simulation\modelsim
+
+=======================================================
+
+Info: Starting NativeLink simulation with ModelSim-Altera software
+Sourced NativeLink script c:/altera/15.0/quartus/common/tcl/internal/nativelink/modelsim.tcl
+Warning: File Dice_Game_run_msim_gate_verilog.do already exists - backing up current file as Dice_Game_run_msim_gate_verilog.do.bak6
+Probing transcript
+ModelSim-Altera Info: # Reading C:/altera/15.0/modelsim_ase/tcl/vsim/pref.tcl
+ModelSim-Altera Info: # do Dice_Game_run_msim_gate_verilog.do
+ModelSim-Altera Info: # if {[file exists gate_work]} {
+ModelSim-Altera Info: # 	vdel -lib gate_work -all
+ModelSim-Altera Info: # }
+ModelSim-Altera Info: # vlib gate_work
+ModelSim-Altera Info: # vmap work gate_work
+ModelSim-Altera Info: # Model Technology ModelSim PE vmap 10.3d Lib Mapping Utility 2014.10 Oct  7 2014
+ModelSim-Altera Info: # vmap -modelsim_quiet work gate_work 
+ModelSim-Altera Info: # Copying C:/altera/15.0/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+ModelSim-Altera Info: # Modifying modelsim.ini
+ModelSim-Altera Warning: # ** Warning: Copied C:/altera/15.0/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini.
+ModelSim-Altera Info: #          Updated modelsim.ini.
+ModelSim-Altera Info: # 
+ModelSim-Altera Info: # vlog -vlog01compat -work work +incdir+. {Dice_Game.vo}
+ModelSim-Altera Info: # Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+ModelSim-Altera Info: # Start time: 15:42:55 on Dec 03,2015
+ModelSim-Altera Info: # vlog -reportprogress 300 -vlog01compat -work work "+incdir+." Dice_Game.vo 
+ModelSim-Altera Info: # -- Compiling module dpathb
+ModelSim-Altera Info: # 
+ModelSim-Altera Info: # Top level modules:
+ModelSim-Altera Info: # 	dpathb
+ModelSim-Altera Info: # End time: 15:42:55 on Dec 03,2015, Elapsed time: 0:00:00
+ModelSim-Altera Info: # Errors: 0, Warnings: 0
+ModelSim-Altera Info: # 
+ModelSim-Altera Info: # vlog -vlog01compat -work work +incdir+C:/Users/Tyler/Documents/School/ece3714/lab/labFinal {C:/Users/Tyler/Documents/School/ece3714/lab/labFinal/dpathb_test.vt}
+ModelSim-Altera Info: # Model Technology ModelSim ALTERA vlog 10.3d Compiler 2014.10 Oct  7 2014
+ModelSim-Altera Info: # Start time: 15:42:55 on Dec 03,2015
+ModelSim-Altera Info: # vlog -reportprogress 300 -vlog01compat -work work "+incdir+C:/Users/Tyler/Documents/School/ece3714/lab/labFinal" C:/Users/Tyler/Documents/School/ece3714/lab/labFinal/dpathb_test.vt 
+ModelSim-Altera Info: # -- Compiling module dpathb_test
+ModelSim-Altera Info: # 
+ModelSim-Altera Info: # Top level modules:
+ModelSim-Altera Info: # 	dpathb_test
+ModelSim-Altera Info: # End time: 15:42:55 on Dec 03,2015, Elapsed time: 0:00:00
+ModelSim-Altera Info: # Errors: 0, Warnings: 0
+ModelSim-Altera Info: # 
+ModelSim-Altera Info: # vsim -t 1ps +transport_int_delays +transport_path_delays -L altera_ver -L altera_lnsim_ver -L cyclonev_ver -L lpm_ver -L sgate_ver -L cyclonev_hssi_ver -L altera_mf_ver -L cyclonev_pcie_hip_ver -L gate_work -L work -voptargs="+acc"  dpathb_test
+ModelSim-Altera Info: # vsim -gui -l msim_transcript -do "Dice_Game_run_msim_gate_verilog.do" 
+ModelSim-Altera Info: # Start time: 15:42:55 on Dec 03,2015
+ModelSim-Altera Info: # Loading work.dpathb_test
+ModelSim-Altera Info: # Loading work.dpathb
+ModelSim-Altera Info: # Loading altera_ver.dffeas
+ModelSim-Altera Info: # Loading altera_ver.PRIM_GDFF_LOW
+ModelSim-Altera Info: # 
+ModelSim-Altera Info: # do C:/Users/Tyler/Documents/School/ece3714/lab/labFinal/dpathb_test.do
+ModelSim-Altera Info: # onerror {resume}
+ModelSim-Altera Info: # add wave -noupdate -divider Inputs
+ModelSim-Altera Info: # add wave -noupdate /dpathb_test/sp
+ModelSim-Altera Info: # add wave -noupdate /dpathb_test/reset_n
+ModelSim-Altera Info: # add wave -noupdate /dpathb_test/clk
+ModelSim-Altera Info: # add wave -noupdate /dpathb_test/sum
+ModelSim-Altera Info: # add wave -noupdate -divider Outputs
+ModelSim-Altera Info: # add wave -noupdate -expand /dpathb_test/STORED_POINT
+ModelSim-Altera Info: # add wave -noupdate -expand /dpathb_test/D7
+ModelSim-Altera Info: # add wave -noupdate -expand /dpathb_test/D11
+ModelSim-Altera Info: # add wave -noupdate -expand /dpathb_test/D2312
+ModelSim-Altera Info: # add wave -noupdate -expand /dpathb_test/EQ
+ModelSim-Altera Info: # add wave -noupdate -divider Testing
+ModelSim-Altera Info: # add wave -noupdate -radix ascii /test_name
+ModelSim-Altera Info: # add wave -noupdate -radix decimal /test_count
+ModelSim-Altera Info: # add wave -noupdate -radix unsigned /test_failures
+ModelSim-Altera Info: # add wave -noupdate /pass
+ModelSim-Altera Info: # run 900 ns
+ModelSim-Altera Info: # 
+ModelSim-Altera Info: # **************** Testing begins ***********************
+ModelSim-Altera Info: # 
+ModelSim-Altera Info: # **************** Test results ***********************
+ModelSim-Altera Info: # A total of         46 tests finished at 260 ns.
+ModelSim-Altera Info: # All tests passed.
+ModelSim-Altera Info: # wave zoom full
+ModelSim-Altera Info: # 0 ps
+ModelSim-Altera Info: # 945 ns
+ModelSim-Altera Info: # End time: 15:45:27 on Dec 03,2015, Elapsed time: 0:02:32
+ModelSim-Altera Info: # Errors: 0, Warnings: 0
+Info: NativeLink simulation flow was successful

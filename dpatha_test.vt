@@ -1,0 +1,197 @@
+// Verilog test fixture created from schematic C:\Users\bjones\Documents\Dropbox\ece3714_ise_projects\stopwatch\stopwatch.sch - Wed Nov 06 17:07:00 2013
+
+`timescale 1ns / 1ps
+
+module dpatha_test
+();
+
+  // Inputs
+  reg sload;
+  reg sclr;
+  reg roll;
+  reg clk;
+
+
+  // Output
+  wire [2:0] CNTA;
+  wire [2:0] CNTB;
+  wire [3:0] SUM;
+  
+  // Bidirs
+
+  // Instantiate the UUT
+  dpatha UUT (
+		.sload(sload), 
+		.sclr(sclr),
+		.roll(roll),		
+		.clk(clk), 
+      .CNTA(CNTA),
+		.CNTB(CNTB),
+		.SUM(SUM)		
+  );
+
+
+  // Initialize Inputs
+  `ifdef auto_init
+    initial begin
+		  sload = 0;
+		  sclr = 0;
+		  roll = 0;		  
+		  clk = 0;
+  `endif
+  
+// Test bench
+// ===============
+  // Bring in the the test bench, which produces all_pass to indicate if all tests pass, and check_all_pass(), which prints
+  // a pass/fail message.  
+  `include "test_bench.vt"  
+
+  // Clock the device under test by moving past a rising edge to the next falling edge. Then,
+  // reset any test failures and relevant inputs before the next test is run.
+  `define TEST_RUN_RESET             \
+    @(negedge clk);                  \
+    pass = 1; sclr = 0; sload = 0;   \
+    roll = 0
+
+ 
+  `define RESET_UUT \
+    sclr = 0; sload = 1; roll = 0    
+
+
+	 
+  // Provide a system clock.
+  always
+    #10 clk = !clk;
+
+  initial begin
+    $display("\n**************** Testing begins ***********************");
+
+    // Start the clock
+    clk = 0;
+
+    // Count begins at 0
+    test_name = "count=1 at init     ";      
+    `RESET_UUT;
+    `TEST_RUN_RESET;
+    `ASSERT(CNTA === 1)
+    `ASSERT(CNTA === 1)
+    `ASSERT(SUM === 2)	 
+   
+    // Let A increment to 6. B stays at 1
+    test_name = "counter A to 6;1 on counter B   ";      
+	 roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1; 
+    `ASSERT(CNTA === 6)
+    `ASSERT(CNTB === 1)
+	 
+    // Let A reload 1; B increment to 2.
+    test_name = "counter A to 1;2 on counter B   ";      
+    `TEST_RUN_RESET;roll = 1;
+    `ASSERT(CNTA === 1)
+    `ASSERT(CNTB === 2)
+
+    // Let A increment to 6. B stays at 2
+    test_name = "counter A to 6;2 on counter B   ";  	 
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1; 
+    `TEST_RUN_RESET;roll = 1; 	 
+    `ASSERT(CNTA === 6)
+    `ASSERT(CNTB === 2)	 
+	 
+    // Let A reload 1; B increment to 3.
+    test_name = "counter A to 1;3 on counter B   ";      
+    `TEST_RUN_RESET;roll = 1;
+    `ASSERT(CNTA === 1)
+    `ASSERT(CNTB === 3)
+
+	 
+    // Let A increment to 6. B stays at 3
+    test_name = "counter A to 6;3 on counter B   ";      
+	 roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1; 
+    `ASSERT(CNTA === 6)
+    `ASSERT(CNTB === 3)	
+
+    // Let A reload 1; B increment to 4.
+    test_name = "counter A to 1;4 on counter B   ";      
+    `TEST_RUN_RESET;roll = 1;
+    `ASSERT(CNTA === 1)
+    `ASSERT(CNTB === 4)	 
+	 
+    // Let A increment to 6. B stays at 4
+    test_name = "counter A to 6;4 on counter B    ";      
+    roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1; 
+    `ASSERT(CNTA === 6)
+    `ASSERT(CNTB === 4)	
+
+    // Let A reload 1; B increment to 5.
+    test_name = "counter A to 1;5 on counter B   ";      
+    `TEST_RUN_RESET;roll = 1;
+    `ASSERT(CNTA === 1)
+    `ASSERT(CNTB === 5)	 
+	 
+    // Let A increment to 6. B stays at 5
+    test_name = "counter A to 6;5 on counter B    ";      
+	 roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1; 
+    `ASSERT(CNTA === 6)
+    `ASSERT(CNTB === 5)
+
+    // Let A reload 1; B increment to 6.
+    test_name = "counter A to 1;6 on counter B   ";      
+    `TEST_RUN_RESET;roll = 1;
+    `ASSERT(CNTA === 1)
+    `ASSERT(CNTB === 6)	 
+	 
+    // Let A increment to 6. B stays at 6
+    test_name = "counter A to 6;6 on counter B    ";      
+	 roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1; 
+    `ASSERT(CNTA === 6)
+    `ASSERT(CNTB === 6)	 
+    `ASSERT(SUM === 12)	 
+	 
+    // Let A reload 1; B reloads 1.
+    test_name = "counter A to 1;counter B to 1   ";      
+    `TEST_RUN_RESET;roll = 1;
+    `ASSERT(CNTA === 1)
+    `ASSERT(CNTB === 1)
+
+    test_name = "counter A to 6;1 on counter B    ";    	 
+	 roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1;
+    `TEST_RUN_RESET;roll = 1; 
+    `ASSERT(CNTA === 6)
+    `ASSERT(CNTB === 1)	 
+  
+    // Tests are done. Print out the results.
+    check_all_pass();	
+  end
+  
+endmodule
